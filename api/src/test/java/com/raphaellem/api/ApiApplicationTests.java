@@ -1,10 +1,10 @@
-package com.raphaellem.catalogue;
+package com.raphaellem.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CatalogueApplicationTests {
+class ApiApplicationTests {
 
 	@Test
 	void contextLoads() {
