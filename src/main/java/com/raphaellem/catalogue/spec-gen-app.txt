@@ -1,0 +1,11 @@
+Project : Gradle - Groovy
+Language : Java
+Spring Boot : 3.3.4
+Package name : com.raphaellem.catalogue
+Packaging : Jar
+Java : 17
+Dependencies :
+> Lombok
+> Spring Web
+> MariaDB Driver
+> Spring Data JPA
