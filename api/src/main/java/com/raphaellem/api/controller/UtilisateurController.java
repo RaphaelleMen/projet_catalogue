@@ -14,12 +14,12 @@ public class UtilisateurController {
     @Autowired
     private UtilisateurService utilisateurService;
 
-    @GetMapping("/utlisateurs")
+    @GetMapping("/utilisateurs")
     public Iterable<Utilisateur> getUtilisateurs(){
         return utilisateurService.getUtilisateurs();
     }
 
-    @GetMapping("/utlisateur/{id}")
+    @GetMapping("/utilisateur/{id}")
     public Optional<Utilisateur> getUtilisateur(@PathVariable Long id){
         return utilisateurService.getUtilisateur(id);
     }
