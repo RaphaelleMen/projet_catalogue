@@ -1,6 +1,7 @@
 package com.raphaellem.api.controller;
 
 import com.raphaellem.api.model.Magazine;
+import com.raphaellem.api.service.MagazineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,30 +12,30 @@ import java.util.Optional;
 public class MagazineController {
 
     @Autowired
-    private MagazineController magazineController;
+    private MagazineService magazineService;
 
     @GetMapping("/magazines")
-    public Iterable<Magazine> getMagazine(){
-        return magazineController.getMagazine();
+    public Iterable<Magazine> getMagazines(){
+        return magazineService.getMagazines();
     }
 
     @GetMapping("/magazine/{id}")
     public Optional<Magazine> getMagazine(@PathVariable Long id){
-        return magazineController.getMagazine(id);
+        return magazineService.getMagazine(id);
     }
 
     @DeleteMapping("/magazine/{id}")
     public void deleteMagazine(@PathVariable Long id){
-        magazineController.deleteMagazine(id);
+        magazineService.deleteMagazine(id);
     }
 
     @PutMapping("/magazine")
     public Magazine updateMagazine(@RequestBody Magazine magazine){
-        return magazineController.updateMagazine(magazine);
+        return magazineService.updateMagazine(magazine);
     }
 
     @PostMapping("/magazine")
     public Magazine createMagazine(@RequestBody Magazine magazine){
-        return magazineController.createMagazine(magazine);
+        return magazineService.createMagazine(magazine);
     }
 }
