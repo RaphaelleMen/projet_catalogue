@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-/*@CrossOrigin("URL CLIENT LOURD")*/
+@CrossOrigin("http://localhost:9300/")
 public class MagazineController {
 
     @Autowired
