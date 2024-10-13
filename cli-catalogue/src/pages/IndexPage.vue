@@ -5,45 +5,75 @@
       <div class="justify-center q-my-xl">
         <div class="col">
           <q-input class="col-4" v-model="inputMagazine" label="Magazine" stack-label :dense="dense" />
-          <q-select class="col-4" outlined v-model="retourThematique" :options="thematiques" label="Thématiques" />
+          <q-select
+            class="col-4"
+            outlined
+            v-model="retourThematique"
+            :options="thematiques"
+            option-label="nom"
+            option-value="id"
+            label="Thématiques"
+            :loading="loadingThematiques"
+            emit-value
+          />
         </div>
-        <div class="q-pa-md">
-          <div class="q-pb-sm">
-            Date(s) de publication :
-          </div>
-        
+        <!-- <div class="q-pa-md">
+          <div class="q-pb-sm">Date(s) de publication :</div>
           <q-date v-model="selectDatePubli" range />
-        </div>
-        <q-btn :ripple="{ center: true }" align="around" color="primary" label="Rechercher" />
+        </div> -->
+        <q-btn :ripple="{ center: true }" align="around" color="primary" label="Rechercher" @click="loadData" />
       </div>
-      <tableau-accueil />
+      <tableau-accueil :articles="articles" />
     </div>
   </q-page>
 </template>
 
 <script setup>
-
-import { ref } from 'vue';
-import TableauAccueil from 'components/TableauAccueil.vue'
-import { date } from 'quasar'
-import { api } from 'boot/axios'
+import { ref, onMounted } from 'vue';
+import TableauAccueil from 'components/TableauAccueil.vue';
+import { date } from 'quasar';
+import { api } from 'boot/axios';
 
 defineOptions({
-  name: 'IndexPage'
+  name: 'IndexPage',
 });
 
 const inputMagazine = ref(null);
 const retourThematique = ref(null);
+const selectDatePubli = ref(null);
+const articles = ref([]);
 
-const selectDatePubli = ref(null)
+const thematiques = ref([]);
+const loadingThematiques = ref(false);
 
-const timeStamp = Date.now()
-const todayDate = date.formatDate(timeStamp, 'YYYY-MM-DD')
+onMounted(async () => {
+  await loadThematiques();
+  await loadData();
+});
 
-const thematiques = [
-  {id: 1, label:"nature"},
-  {id: 2, label:"chasse"},
-  {id: 3, label:"pêche"}
-]
-
+async function loadThematiques() {
+  loadingThematiques.value = true;
+  try {
+    const response = await api.get('/thematiques');
+    thematiques.value = response.data;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des thématiques:', error);
+  } finally {
+    loadingThematiques.value = false;
+  }
+}
+async function loadData() {
+  try {
+    const response = await api.get('/allMagazines', {
+      params: {
+        nomMagazine: inputMagazine.value,
+        fkThematique: retourThematique.value,
+        dateMagazine: selectDatePubli.value,
+      },
+    });
+    articles.value = response.data;
+  } catch (error) {
+    console.log('Erreur :', error);
+  }
+}
 </script>
