@@ -37,4 +37,9 @@ public class MagazineService {
         return  createdMagazine;
     }
 
+    public Iterable<Magazine> getMagazineNom(String nom) {
+        Iterable<Magazine> magazines = magazineRepository.findByNomContaining(nom);
+        return magazines;
+    }
+
 }

@@ -37,4 +37,7 @@ public class ArticleService {
         return  createdArticle;
     }
 
+    public Iterable<Article> getArticlesByThematique(Long thematiqueId) {
+        return articleRepository.findByFkThematique(thematiqueId);
+    }
 }

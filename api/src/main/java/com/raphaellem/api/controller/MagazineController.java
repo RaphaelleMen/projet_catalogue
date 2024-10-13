@@ -38,4 +38,13 @@ public class MagazineController {
     public Magazine createMagazine(@RequestBody Magazine magazine){
         return magazineService.createMagazine(magazine);
     }
+    @GetMapping("/magazineByNom")
+    public Iterable<Magazine> getMagazineNom(@RequestParam(required = false) String nom) {
+        if (nom != null && !nom.isEmpty()) {
+            return magazineService.getMagazineNom(nom);
+        } else {
+            return magazineService.getMagazines();
+        }
+
+    }
 }

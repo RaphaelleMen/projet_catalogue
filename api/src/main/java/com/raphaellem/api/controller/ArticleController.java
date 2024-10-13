@@ -38,4 +38,8 @@ public class ArticleController {
     public Article createArticle(@RequestBody Article article){
         return articleService.createArticle(article);
     }
+    @GetMapping("/articleByThematique/{thematiqueId}")
+    public Iterable<Article> getArticlesByThematique(@PathVariable Long thematiqueId) {
+        return articleService.getArticlesByThematique(thematiqueId);
+    }
 }
