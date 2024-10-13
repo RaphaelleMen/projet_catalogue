@@ -21,7 +21,7 @@
           <div class="q-pb-sm">Date(s) de publication :</div>
           <q-date v-model="selectDatePubli" range />
         </div> -->
-        <q-btn :ripple="{ center: true }" align="around" color="primary" label="Rechercher" @click="loadData" />
+        <q-btn :ripple="{ center: true }" align="around" color="primary" label="Rechercher" @click="loadArticlesData" />
       </div>
       <tableau-accueil :articles="articles" />
     </div>
@@ -48,7 +48,7 @@ const loadingThematiques = ref(false);
 
 onMounted(async () => {
   await loadThematiques();
-  await loadData();
+  await loadArticlesData();
 });
 
 async function loadThematiques() {
@@ -62,7 +62,7 @@ async function loadThematiques() {
     loadingThematiques.value = false;
   }
 }
-async function loadData() {
+async function loadArticlesData() {
   try {
     const response = await api.get('/allMagazines', {
       params: {
