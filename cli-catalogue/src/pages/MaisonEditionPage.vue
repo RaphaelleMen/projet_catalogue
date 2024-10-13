@@ -14,9 +14,17 @@
           </div>
           <div class="row justify-around">
             <div class="col-8">
-              <q-input outlined bottom-slots v-model="inputMagazine" :dense="dense">
-                <template v-slot:prepend>
-                  <q-icon name="event" />
+              <q-input filled v-model="inputDateME" mask="####-##-##">
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                      <q-date v-model="inputDateME">
+                        <div class="row items-center justify-end">
+                          <q-btn v-close-popup label="Close" color="primary" flat />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
                 </template>
                 <template v-slot:before>
                   Date de création
@@ -35,16 +43,7 @@
           </div>
           <div class="row justify-around">
             <div class="col-8">
-              <q-select class="col-4" outlined v-model="retourThematique" :options="thematiques">
-                <template v-slot:before>
-                  Thématiques
-                </template>
-              </q-select>
-            </div>
-          </div>
-          <div class="row justify-around">
-            <div class="col-8">
-              <q-btn :ripple="{ center: true }" color="primary" label="Ajouter une maison d'édition" icon-right="send" class="q-my-xl q-pa-md"/>
+              <q-btn :ripple="{ center: true }" color="primary" label="Ajouter une maison d'édition" icon-right="send" class="q-my-xl q-pa-md" @click="addRow()"/>
             </div>
           </div>
         </div>
@@ -123,7 +122,12 @@ defineOptions({
   name: 'MaisonEditionPage'
 });
 
+const inputDateME = ref(null);
+const inputNomME = ref(null);
+const inputAdresseME = ref(null);
+
 const editions = ref([]);
+
 const editId = ref(null);
 const editAdresse = ref(null);
 const editNom = ref(null);
@@ -180,6 +184,24 @@ function updateRow() {
     .then(() => {
       loadEditionsData();
       dialogEdit.value = false;
+    });
+}
+
+function deleteRow(row) {
+  api.delete('/edition/' + row.id).then(() => {
+    loadEditionsData();
+  });
+}
+
+function addRow() {
+  api
+    .post('/edition', {
+      nom: inputNomME.value,
+      adresse: inputAdresseME.value,
+      dateCreation: inputDateME.value,
+    })
+    .then(() => {
+      loadEditionsData();
     });
 }
 
