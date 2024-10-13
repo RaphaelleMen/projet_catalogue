@@ -8,39 +8,55 @@
           round
           icon="menu"
           aria-label="Menu"
-          @click="toggleLeftDrawer"
+          @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
         <q-toolbar-title>
-          Quasar App
+          Catalogue des magazines
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>Application v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
     <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+        v-model="leftDrawerOpen"
+        show-if-above
+        :width="300"
+        :breakpoint="500"
+        class="q-pt-xl"
+      >
+      <div class="text-weight-bold">Se connecter</div>
+        <q-scroll-area class="fit">
+          <q-list padding class="menu-list">
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
+            <q-item to="/" exact clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="search" />
+              </q-item-section>
+
+              <q-item-section>
+                Faire une recherche
+              </q-item-section>
+            </q-item>
+
+            <q-item to="/historique" exact clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="list" />
+              </q-item-section>
+
+              <q-item-section>
+                Mon historique
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-scroll-area>
+      </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <keep-alive>
+        <router-view />
+      </keep-alive>
     </q-page-container>
   </q-layout>
 </template>
@@ -104,3 +120,8 @@ function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 </script>
+
+<style lang="sass" scoped>
+.menu-list .q-item
+  border-radius: 0 32px 32px 0
+</style>
