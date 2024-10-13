@@ -49,6 +49,36 @@
                 Mon historique
               </q-item-section>
             </q-item>
+
+            <q-item to="/maison-edition" exact clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="list" />
+              </q-item-section>
+
+              <q-item-section>
+                Maisons d'édition
+              </q-item-section>
+            </q-item>
+
+            <q-item to="/maison-edition" exact clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="list" />
+              </q-item-section>
+
+              <q-item-section>
+                Magazines
+              </q-item-section>
+            </q-item>
+
+            <q-item to="/maison-edition" exact clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="list" />
+              </q-item-section>
+
+              <q-item-section>
+                Articles
+              </q-item-section>
+            </q-item>
           </q-list>
         </q-scroll-area>
       </q-drawer>

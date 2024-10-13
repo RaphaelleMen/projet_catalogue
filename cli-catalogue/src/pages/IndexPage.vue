@@ -46,21 +46,4 @@ const thematiques = [
   {id: 3, label:"pêche"}
 ]
 
-async function loadData() {
-  try {
-    const response = await api.get('/allMagazines', {
-      params: {
-        nomMagazine: inputMagazine.value,
-        fkThematique: idService.value,
-        dateMagazine: idSite.value,
-      },
-    });
-    data.value = response.data;
-    dataLoaded.value = true;
-    pageLoaded.value = true;
-  } catch (error) {
-    console.log('Erreur :', error);
-  }
-}
-
 </script>
