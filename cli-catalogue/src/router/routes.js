@@ -6,7 +6,9 @@ const routes = [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: '', component: () => import('components/TableauAccueil.vue') },
       { path: '/historique', component: () => import('pages/HistoriquePage.vue') },
-      { path: '/maison-edition', component: () => import('pages/MaisonEditionPage.vue') }
+      { path: '/maison-edition', component: () => import('pages/MaisonEditionPage.vue') },
+      { path: '/magazine', component: () => import('pages/MagazinePage.vue') },
+      { path: '/article', component: () => import('pages/ArticlePage.vue') }
     ]
   },
 

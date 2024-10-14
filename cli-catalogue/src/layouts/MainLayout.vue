@@ -60,7 +60,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item to="/maison-edition" exact clickable v-ripple>
+            <q-item to="/magazine" exact clickable v-ripple>
               <q-item-section avatar>
                 <q-icon name="list" />
               </q-item-section>
@@ -70,7 +70,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item to="/maison-edition" exact clickable v-ripple>
+            <q-item to="/article" exact clickable v-ripple>
               <q-item-section avatar>
                 <q-icon name="list" />
               </q-item-section>
