@@ -1,10 +1,11 @@
 <template>
   <q-page class="row flex flex-center">
     <div class="q-pa-md">
-      <h1 class="col-12">Recherche</h1>
+      <h1 class="col-12">Bienvenue</h1>
+      <h2 class="col-12">Sur le catalogue des magazines</h2>
       <div class="justify-center q-my-xl">
         <div class="col">
-          <q-input class="col-4" v-model="inputMagazine" label="Magazine" stack-label :dense="dense" />
+          <q-input class="col-4 q-py-md" outlined v-model="inputMagazine" label="Magazine" />
           <q-select
             class="col-4"
             outlined
@@ -21,7 +22,7 @@
           <div class="q-pb-sm">Date(s) de publication :</div>
           <q-date v-model="selectDatePubli" range />
         </div> -->
-        <q-btn :ripple="{ center: true }" align="around" color="primary" label="Rechercher" @click="loadArticlesData" />
+        <q-btn class="q-pa-md q-ma-md" :ripple="{ center: true }" align="around" color="primary" label="Rechercher" @click="loadArticlesData" />
       </div>
       <tableau-accueil :articles="articles" />
     </div>
