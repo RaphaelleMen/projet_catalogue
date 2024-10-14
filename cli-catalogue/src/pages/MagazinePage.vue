@@ -43,7 +43,7 @@
           </div>
           <div class="row justify-around">
             <div class="col-8">
-              <q-btn :ripple="{ center: true }" color="primary" label="Ajouter une maison d'édition" icon-right="send" class="q-my-xl q-pa-md" @click="addRow()"/>
+              <q-btn :ripple="{ center: true }" color="primary" label="Ajouter un magazine" icon-right="send" class="q-my-xl q-pa-md" @click="addRow()"/>
             </div>
           </div>
         </div>
@@ -201,6 +201,8 @@ function addRow() {
       nom: inputNomMagazine.value,
       numero: inputNumeroMagazine.value,
       publication: inputDateMagazine.value,
+      /*TO DO : Lier aux FK*/
+      fkEdition: 1
     })
     .then(() => {
       loadMagazinesData();

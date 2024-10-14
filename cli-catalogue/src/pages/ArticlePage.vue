@@ -45,14 +45,14 @@
           </div>
           <div class="row justify-around">
             <div class="col-8">
-              <q-btn :ripple="{ center: true }" color="primary" label="Ajouter une maison d'édition" icon-right="send" class="q-my-xl q-pa-md" @click="addRow()"/>
+              <q-btn :ripple="{ center: true }" color="primary" label="Ajouter un article" icon-right="send" class="q-my-xl q-pa-md" @click="addRow()"/>
             </div>
           </div>
         </div>
         <div>
           <div class="q-pa-md">
             <q-table
-              title="Articles enregistrées"
+              title="Articles enregistrés"
               :rows="articles"
               :columns="columns"
               row-key="name"
@@ -66,9 +66,14 @@
                     @click="editRow(props.row)"
                   />
                   <q-btn
-                    color="grey"
+                    color="grey q-mr-md"
                     label="Supprimer"
                     @click="deleteRow(props.row)"
+                  />
+                  <q-btn
+                    color="primary"
+                    label="Consulter"
+                    @click="getPage(props.row)"
                   />
                 </q-td>
               </template>
@@ -120,6 +125,27 @@
             </q-card-actions>
           </q-card>
         </q-dialog>
+        <q-dialog v-model="dialogView">
+            <q-card>
+              <q-card-section>
+                <div class="text-h5">Consultation de l'article</div>
+              </q-card-section>
+              <q-card-section>
+                <div class="text-h6">{{ editTitre }}</div>
+                <div class="text-subtitle2">par {{ editAuteur }}</div>
+              </q-card-section>
+              <q-separator dark inset />
+              <q-card-section>
+                <div class="text-subtitle2">paru dans {{ editFkMagazine }}</div>
+                <div class="text-subtitle2">thématiques :  {{ editFkThematique }}</div>
+              </q-card-section>
+              <q-separator dark inset />
+              <q-card-section>
+                {{ editTexte }}
+                {{ editImg }}
+              </q-card-section>
+            </q-card>
+          </q-dialog>
     </q-page>
 </template>
 
@@ -148,6 +174,7 @@ const editFkThematique = ref(null);
 
 const loadingArticles = ref(false);
 const dialogEdit = ref(false);
+const dialogView = ref(false);
 
 onMounted(async () => {
   await loadArticlesData();
@@ -217,12 +244,25 @@ function deleteRow(row) {
   });
 }
 
+function getPage(row) {
+    editAuteur.value = row.auteur;
+    editTitre.value = row.titre;
+    editTexte.value = row.texte;
+    editImg.value = row.image;
+    editFkMagazine.value = row.fkMagazine;
+    editFkThematique.value = row.fkThematique;
+    dialogView.value = true;
+}
+
 function addRow() {
   api
     .post('/article', {
       titre: inputTitreArticle.value,
       auteur: inputAuteurArticle.value,
       texte: inputTexteArticle.value,
+      /*TO DO : Lier aux FK*/
+      fkMagazine: 1,
+      fkThematique: 1
     })
     .then(() => {
       loadArticlesData();
